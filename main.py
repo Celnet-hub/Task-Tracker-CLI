@@ -59,6 +59,23 @@ class TaskManager:
             task["description"] = new_description
             task["updatedAt"] = datetime.now().isoformat()
     
+    # update tasks description
+    def delete_task(self, task_id):
+        tasks = self.load_tasks()
+        task = self.tasks.get(task_id)
+        if task_id in tasks:
+            print(True)
+            confirmation = input(f'Delete Task: {task}? Y/N: ')
+            if confirmation.lower() == 'y' or confirmation.lower() == 'yes': 
+                tasks.pop(task_id)
+                print(f'Task with ID {task_id} has been deleted')
+                print(json.dumps(tasks, indent=4))
+                self.tasks = tasks
+                self.save_tasks()
+
+                       
+
+    # save to list
     def save_tasks(self):
         with open(self.filename, 'w') as file:
             json.dump(list(self.tasks.values()), file, indent=4)
@@ -80,6 +97,8 @@ def get_user_input(greetings):
             attempts += 1
             print('Please input a number.', 3 - attempts, "attempts left")
 
+
+
 #initialize TaskManager class
 task_manager = TaskManager('tasks.json')
 
@@ -99,7 +118,9 @@ elif user_input == 2:
 
 # Delete Task
 elif user_input == 3:
-    pass
+    task_id = int(input("Proivde Task ID: "))
+    task_manager.delete_task(task_id)
+
 
 # List Tasks
 elif user_input == 4:
