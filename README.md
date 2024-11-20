@@ -1,6 +1,6 @@
 # Task Tracker
 
-Welcome to your Task Tracker! This application allows you to manage your tasks efficiently.
+Welcome to your [Task Tracker!](https://github.com/Celnet-hub/Task-Tracker-CLI). This application allows you to manage your tasks efficiently.
 
 ## Features
 
