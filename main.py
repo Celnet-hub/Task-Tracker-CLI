@@ -51,6 +51,11 @@ class TaskManager:
         if task:
             task["status"] = new_status
             task["updatedAt"] = datetime.now().isoformat()
+            print(json.dumps(task, indent=4))
+            self.tasks[task_id] = task
+            self.save_tasks()
+        else:
+            print(f'Task with ID {task_id} does not exist in the database')
 
     # update tasks description
     def update_task_description(self, task_id, new_description):
@@ -58,6 +63,11 @@ class TaskManager:
         if task:
             task["description"] = new_description
             task["updatedAt"] = datetime.now().isoformat()
+            print(json.dumps(task, indent=4))
+            self.tasks[task_id] = task
+            self.save_tasks()
+        else:
+            print(f'Task with ID {task_id} does not exist in the database')
     
     # update tasks description
     def delete_task(self, task_id):
@@ -74,7 +84,6 @@ class TaskManager:
                 self.save_tasks()
 
                        
-
     # save to list
     def save_tasks(self):
         with open(self.filename, 'w') as file:
@@ -114,13 +123,20 @@ if user_input == 1:
 
 # Update Task
 elif user_input == 2:
-    pass
+    task_id = int(input("Proivde Task ID: "))
+    next_update = int(input("Input 1 for Status_Update or Input 2 for Task_Description update: "))
+    if next_update == 1:
+        new_status = input('Enter new status (HINT: Todo, Done, In Progress): ')
+        task_manager.update_task_status(task_id, new_status)
+    elif next_update == 2:
+        new_description = input('Enter new tasks description: ')
+        task_manager.update_task_description(task_id,new_description)
+
 
 # Delete Task
 elif user_input == 3:
     task_id = int(input("Proivde Task ID: "))
     task_manager.delete_task(task_id)
-
 
 # List Tasks
 elif user_input == 4:
