@@ -123,20 +123,31 @@ if user_input == 1:
 
 # Update Task
 elif user_input == 2:
-    task_id = int(input("Proivde Task ID: "))
-    next_update = int(input("Input 1 for Status_Update or Input 2 for Task_Description update: "))
-    if next_update == 1:
-        new_status = input('Enter new status (HINT: Todo, Done, In Progress): ')
-        task_manager.update_task_status(task_id, new_status)
-    elif next_update == 2:
-        new_description = input('Enter new tasks description: ')
-        task_manager.update_task_description(task_id,new_description)
+    try:
+        task_id = int(input("Proivde Task ID: "))
+        next_update = int(input("Input 1 for Status_Update or Input 2 for Task_Description update: "))
+        
+        # Handle Status_Update
+        if next_update == 1:
+            new_status = input('Enter new status (HINT: Todo, Done, In Progress): ')
+            task_manager.update_task_status(task_id, new_status)
 
+        # Handle Task Description update
+        elif next_update == 2:
+            new_description = input('Enter new tasks description: ')
+            task_manager.update_task_description(task_id,new_description)
 
+    except ValueError as e:
+        print('Please input a number')
+
+    
 # Delete Task
 elif user_input == 3:
-    task_id = int(input("Proivde Task ID: "))
-    task_manager.delete_task(task_id)
+    try:
+        task_id = int(input("Proivde Task ID: "))
+        task_manager.delete_task(task_id)
+    except ValueError as e:
+        print('Please input a number')
 
 # List Tasks
 elif user_input == 4:
